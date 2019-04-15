@@ -1632,12 +1632,12 @@ void LSA::eCalcCalibratedDerivativesX(Eigen::MatrixXd &A, const int camerak) {
 	const double yxpc = (4 * k4 * ex3(0) * xy2 + 2 * k2 * ex3(0)) * ex3(1);
 	const double yypc = ex3(1) * (2 * k2 * ex3(1) + 4 * k4 * xy2 * ex3(1)) + k4 * xy4 + k2 * xy2 + 1.;
 
-	Eigen::Index dim = A.cols();
+	int dim = A.cols();
 	if (dim == nrparir)
 		dim = 5;
 	if (dim == nrpari)
 		dim = 6;
-	for (Eigen::Index i = 0; i < dim; ++i) {
+	for (int i = 0; i < dim; ++i) {
 		const double xpo = A(0,i);
 		const double ypo = A(1,i);
 
