@@ -1,0 +1,42 @@
+RPBA - Robust Parallel Bundle Adjustment
+
+For compilation use cmake / cmake-gui and make
+
+
+RPBA is controled via the file 
+
+"parameters"
+
+
+It uses the data format defined in the project "Bundle Adjustment in the Large"
+
+https://grail.cs.washington.edu/projects/bal/
+
+It has been particularly tested with
+
+problem-961-187103-pre.txt
+
+and the largest blocks
+
+problem-3068-310854-pre.txt
+problem-4585-1324582-pre.txt
+problem-13682-4456117-pre.txt
+
+in https://grail.cs.washington.edu/projects/bal/final.html
+
+
+
+A short guide to the file "parameters"
+
+Robust:	      	 1 means that robust estimation is used
+Exteval:	 1 means that back projection error is computed, but no adjustment
+Threads:	 Number threads - 0 means physically available number
+
+k2:		 1 means that second order radial distortion is estimated		 
+k4:		 1 means that fourth order radial distortion is estimated
+f:		 1 means that focale length / camera constant is estimated
+
+k24out:		 1 means that the output of PBA can be read
+
+InputDir: 	 Name of input directory
+File:            File name with format 
