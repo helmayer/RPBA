@@ -41,15 +41,15 @@ in https://grail.cs.washington.edu/projects/bal/final.html
 
 A short guide to the file "parameters"
 
-Robust:	    1 means that robust estimation is used
-Exteval:	  1 means that back projection error is computed, but no adjustment
-Threads:	  Number threads - 0 means physically available number
+Robust:    1 means that robust estimation is used
+Exteval:   1 means that back projection error is computed, but no adjustment
+Threads:   Number threads - 0 means physically available number
 
-k2:		      1 means that second order radial distortion is estimated		 
-k4:		      1 means that fourth order radial distortion is estimated
-f:		      1 means that focale length / camera constant is estimated
+k2:        1 means that second order radial distortion is estimated		 
+k4:        1 means that fourth order radial distortion is estimated
+f:         1 means that focale length / camera constant is estimated
 
-k24out:		  1 means that the output of PBA can be read
+k24out:    1 means that the output of PBA can be read
 
-InputDir: 	Name of input directory
-File:       File name with format 
+InputDir:  Name of input directory
+File:      File name with format 
