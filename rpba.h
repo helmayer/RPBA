@@ -39,7 +39,7 @@ typedef Eigen::Matrix<float,3,4> PMat;		/**< Projection matrix. */
 typedef Eigen::Matrix<double,3,4> PMatd;	/**< Projection matrix with double precision. */
 
 
-#include<Eigen/StdVector>
+#include<eigen3/Eigen/StdVector>
 EIGEN_DEFINE_STL_VECTOR_SPECIALIZATION(PMat)
 EIGEN_DEFINE_STL_VECTOR_SPECIALIZATION(PMatd)
 EIGEN_DEFINE_STL_VECTOR_SPECIALIZATION(Eigen::Matrix3d)
