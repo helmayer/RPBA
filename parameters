@@ -1,12 +1,6 @@
-Compare = 0
-Precision = 0
 Robust = 0
 Exteval = 0
-Caching = 0
 Threads = 0
-Logging = 5
-
-OutputVRML = 1
 
 
 k2 = 1
@@ -14,56 +8,7 @@ k4 = 0
 f = 1
 
 k24out = 0
-MeasurementDistortion = 0
-
-UseVanillaConsensus = 0
-ConsensusFactor = 1.e3
-ConsensusMultiplicationFactor = 0.99
-ConsensusRobustThreshold = 100.
-ConsensusSigma0Frac = 1.01
 
 
-#InputDir = /home/helmut/pg/bundle/simulations
-#File = sim-6-200.txt
-#File = sim-50-400.txt
-#MaxSceneSize = 30000
-#RescaleCameras = 10000000
-
-#InputDir = /home/helmut/pg/bundle/16
-#File = problem-16-22106-pre.txt
-#File = problem-16-22106-pre-converted.txt
-#File = 16out.txt
-
-#InputDir = /home/helmut/pg/bundle/394
-#File = problem-394-100368-pre.txt
-#File = 394mout.txt
-#MaxSceneSize = 200
-#RescaleCameras = 500
-
-#InputDir = /home/helmut/pg/bundle/427
-#File = problem-427-310384-pre.txt
-#MaxSceneSize = 200
-#RescaleCameras = 500
-
-#InputDir = /home/helmut/pg/bundle/871
-#File = problem-871-527480-pre.txt
-
-InputDir = /home/helmut/pg/bundle/961
+InputDir = ./961
 File = problem-961-187103-pre.txt
-#File = 961out.txt
-MaxSceneSize = 200
-RescaleCameras = 500
-
-#InputDir = /home/helmut/pg/bundle/3068
-#File = problem-3068-310854-pre.txt
-#File = 3068out.txt
-
-#InputDir = /home/helmut/pg/bundle/4585
-#File = problem-4585-1324582-pre.txt
-#File = 4585out.txt
-
-#InputDir = /home/helmut/pg/bundle/13682
-#File = problem-13682-4456117-pre.txt
-#File = 13682out.txt
-#MaxSceneSize = 200
-#RescaleCameras = 50000
