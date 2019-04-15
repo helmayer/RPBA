@@ -15,69 +15,19 @@
 
 cmake_minimum_required(VERSION 3.5)
 if(WIN32)
-	project(cls CXX)
+	project(rpba CXX)
 else()
-	project(cls)
+	project(rpba)
 endif(WIN32)
 
 
-
-
-# CLS files
-file(GLOB cls_sources cls.cpp ../hpen/cpls.cpp ../hpen/clsbase.cpp ../hpen/Camera.cpp ../hpen/cmath.cpp ../hpen/Params.cpp ../hpen/System.cpp ../hpen/Util.cpp)
-#foreach(f ${cls_sources})
-#	if((${f} MATCHES "- Kopie") OR (${f} MATCHES "sim.cpp"))
-#		#message(STATUS "Exclude [" ${f} "] from project.")
-#		list(REMOVE_ITEM cls_sources ${f})
-#	endif()
-#endforeach()
-
 # RPBA files
 file(GLOB rpba_sources rpba.cpp rpbacore.cpp rbacore.cpp)
-
-# SIM files
-set(sim_sources sim.cpp)
-
-
-set(stlplus_files stlplus/portability/file_system.cpp stlplus/portability/portability_fixes.cpp stlplus/portability/wildcard.cpp)
-list(APPEND cls_sources ${stlplus_files})
-
 
 
 set(CMAKE_CONFIGURATION_TYPES "Release;Debug" CACHE STRING "limited configs" FORCE)
 set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Build mode (Values: Release, Debug)")
 set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS Release Debug)
-
-# OpenCV
-if(CMAKE_COMPILER_IS_GNUCXX)
-	set(OPENCV_IMGCODECS_LIB "libopencv_imgcodecs.so")
-	set(OPENCV_LIBS libopencv_core.so libopencv_imgproc.so libopencv_highgui.so libopencv_features2d.so)
-else()
-	set(OPENCV_VERSION_SUFFIX "300" CACHE STRING "OpenCV version suffix")
-	set(opencv_libs opencv_core opencv_highgui opencv_imgproc)
-	foreach(f ${opencv_libs})
-		list(APPEND OPENCV_LIBS "${f}${OPENCV_VERSION_SUFFIX}.lib")
-	endforeach()
-	set(OPENCV_IMGCODECS_LIB "opencv_imgcodecs${OPENCV_VERSION_SUFFIX}.lib")
-endif()
-find_path(OPENCV_INCLUDE_DIR opencv/highgui.h opencv/cv.h $ENV{OPENCV_ROOT}/include)
-find_path(OPENCV_LIB_DIR ${OPENCV_LIBS} $ENV{OPENCV_ROOT}/lib /usr/local/lib)
-include_directories(${OPENCV_INCLUDE_DIR})
-link_directories(${OPENCV_LIB_DIR})
-set(CLS_TARGET_LIBS ${CLS_TARGET_LIBS} ${OPENCV_LIBS})
-file(GLOB opencv_libs ${OPENCV_LIB_DIR}/*.*)
-foreach(f ${opencv_libs})
-	if( ${f} MATCHES ${OPENCV_IMGCODECS_LIB} )
-		list(FIND OPENCV_LIBS ${OPENCV_IMGCODECS_LIB} index)
-		if( ${index} LESS 0 )
-			list(APPEND OPENCV_LIBS ${OPENCV_IMGCODECS_LIB})
-			message(STATUS "OpenCV 3.x.x detected -> add module IMGCODECS")
-		else()
-			message(STATUS "OpenCV 3.x.x detected")
-		endif()
-	endif()
-endforeach()
-set(CLS_TARGET_LIBS ${CLS_TARGET_LIBS} ${OPENCV_LIBS})
 
 
 # ------------------------------------
@@ -102,10 +52,8 @@ if(UNIX)
 	# TCMalloc
 	if(BUILD_WITH_TCMALLOC)
 		if(BUILD_WITH_PROFILER)
-			set(CLS_TARGET_LIBS ${CLS_TARGET_LIBS} tcmalloc_and_profiler)
 			set(rpba_TARGET_LIBS ${rpba_TARGET_LIBS} tcmalloc_and_profiler)
 		else()
-			set(CLS_TARGET_LIBS ${CLS_TARGET_LIBS} tcmalloc)
 			set(rpba_TARGET_LIBS ${rpba_TARGET_LIBS} tcmalloc)
 		endif()
 	endif()
@@ -114,12 +62,10 @@ if(UNIX)
 	if(BUILD_WITH_PROFILER)
 		if(BUILD_WITH_TCMALLOC)
 		else()
-			set(CLS_TARGET_LIBS ${CLS_TARGET_LIBS} tcmalloc_and_profiler)
 			set(rpba_TARGET_LIBS ${rpba_TARGET_LIBS} tcmalloc_and_profiler)
 		endif()
 	endif()
 endif()
-
 
 
 # set OpenMP flags
@@ -150,15 +96,8 @@ set(CMAKE_C_FLAGS_RELEASE ${CMAKE_CXX_FLAGS_RELEASE})
 set(CMAKE_C_FLAGS_DEBUG ${CMAKE_CXX_FLAGS_DEBUG})
 
 if(CMAKE_COMPILER_IS_GNUCXX)
-  set(CLS_TARGET_LIBS ${CLS_TARGET_LIBS} metis.so)
   set(rpba_TARGET_LIBS ${rpba_TARGET_LIBS} metis.so)
 endif()
       
-add_executable(cls ${cls_sources})
-target_link_libraries(cls ${CLS_TARGET_LIBS})
-
 add_executable(rpba ${rpba_sources})
 target_link_libraries(rpba ${rpba_TARGET_LIBS})
-
-add_executable(sim ${sim_sources})
-target_link_libraries(sim ${SIM_TARGET_LIBS})
