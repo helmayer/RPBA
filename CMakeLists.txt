@@ -14,11 +14,7 @@
 
 
 cmake_minimum_required(VERSION 3.5)
-if(WIN32)
-	project(rpba CXX)
-else()
-	project(rpba)
-endif(WIN32)
+project(rpba)
 
 
 # RPBA files
@@ -29,12 +25,24 @@ set(CMAKE_CONFIGURATION_TYPES "Release;Debug" CACHE STRING "limited configs" FOR
 set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Build mode (Values: Release, Debug)")
 set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS Release Debug)
 
+# ------------------------------------
+# Boost
+# ------------------------------------
+cmake_policy(SET CMP0074 NEW)
+find_package(Boost REQUIRED)
+include_directories(${Boost_INCLUDE_DIRS})
+
+# ------------------------------------
+# Eigen
+# ------------------------------------
+find_path(EIGEN_INCLUDE_DIR Eigen/Core Eigen/Geometry $ENV{EIGEN_ROOT}/include /usr/include /usr/local/include)
+include_directories(${EIGEN_INCLUDE_DIR})
 
 # ------------------------------------
 # METIS
 # ------------------------------------
 if(CMAKE_COMPILER_IS_GNUCXX)
-	set(METIS_LIBS libmetis.so)
+	set(METIS_LIBS libmetis.so metis.so)
 else()
 	set(METIS_LIBS metis.lib)
 endif()
@@ -42,9 +50,11 @@ find_path(METIS_INCLUDE_DIR metis.h $ENV{METIS_ROOT}/include /usr/include)
 find_path(METIS_LIB_DIR ${METIS_LIBS} $ENV{METIS_ROOT}/lib /usr/lib /usr/local/lib /usr/lib/x86_64-linux-gnu /usr/lib64)
 include_directories(${METIS_INCLUDE_DIR})
 link_directories(${METIS_LIB_DIR})
-set(HPE_TARGET_LIBS ${HPE_TARGET_LIBS} ${METIS_LIBS})
+set(RPBA_TARGET_LIBS ${RPBA_TARGET_LIBS} ${METIS_LIBS})
 
-
+# ------------------------------------
+# TCMalloc
+# ------------------------------------
 if(UNIX)
 	option(BUILD_WITH_TCMALLOC "Use TCMalloc" OFF)
 	option(BUILD_WITH_PROFILER "Use TCMalloc with profiler" OFF)
@@ -79,7 +89,6 @@ if( CMAKE_SIZEOF_VOID_P LESS 8 )
 	message(SEND_ERROR "Only 64 bit build mode is supported.")
 endif()
 
-
 include_directories(.)
 if(CMAKE_COMPILER_IS_GNUCXX)
 #-Wconversion
@@ -95,9 +104,5 @@ endif()
 set(CMAKE_C_FLAGS_RELEASE ${CMAKE_CXX_FLAGS_RELEASE})
 set(CMAKE_C_FLAGS_DEBUG ${CMAKE_CXX_FLAGS_DEBUG})
 
-if(CMAKE_COMPILER_IS_GNUCXX)
-  set(rpba_TARGET_LIBS ${rpba_TARGET_LIBS} metis.so)
-endif()
-      
 add_executable(rpba ${rpba_sources})
-target_link_libraries(rpba ${rpba_TARGET_LIBS})
+target_link_libraries(rpba ${RPBA_TARGET_LIBS})

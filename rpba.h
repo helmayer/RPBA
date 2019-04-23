@@ -25,8 +25,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 #include <ctime>
 #include <sys/timeb.h>
 #include <iostream>
-#include <eigen3/Eigen/Core>
-#include <eigen3/Eigen/Geometry>
+#include <Eigen/Core>
+#include <Eigen/Geometry>
 #include <boost/math/special_functions/fpclassify.hpp>
 
 #pragma warning(push)
@@ -39,7 +39,7 @@ typedef Eigen::Matrix<float,3,4> PMat;		/**< Projection matrix. */
 typedef Eigen::Matrix<double,3,4> PMatd;	/**< Projection matrix with double precision. */
 
 
-#include<eigen3/Eigen/StdVector>
+#include<Eigen/StdVector>
 EIGEN_DEFINE_STL_VECTOR_SPECIALIZATION(PMat)
 EIGEN_DEFINE_STL_VECTOR_SPECIALIZATION(PMatd)
 EIGEN_DEFINE_STL_VECTOR_SPECIALIZATION(Eigen::Matrix3d)
