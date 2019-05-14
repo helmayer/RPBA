@@ -1307,7 +1307,7 @@ void LSA::CalcCorrections(const bool solveflag, const double multfact1, const st
 				diff1 = diff2 = 0.;
 				if (derivflag)
 					CalcDerivatives(solveflag, camerak, k, ks, nro, xs3, diff1, diff2);
-				sig0rmv[nro] = 1.e20;
+				sig0rmv[nro] = 1.e20f;
 			} // if ISflag
 			else {
 				if (derivflag)
@@ -1632,7 +1632,7 @@ void LSA::eCalcCalibratedDerivativesX(Eigen::MatrixXd &A, const int camerak) {
 	const double yxpc = (4 * k4 * ex3(0) * xy2 + 2 * k2 * ex3(0)) * ex3(1);
 	const double yypc = ex3(1) * (2 * k2 * ex3(1) + 4 * k4 * xy2 * ex3(1)) + k4 * xy4 + k2 * xy2 + 1.;
 
-	int dim = A.cols();
+	int dim = (int) A.cols();
 	if (dim == nrparir)
 		dim = 5;
 	if (dim == nrpari)
