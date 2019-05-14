@@ -1,11 +1,6 @@
 # RPBA
 Robust Parallel Bundle Adjustment
 
-
-File README
-
-
-
 Copyright 2019 Helmut Mayer, Bundeswehr University Munich, Germany, Helmut.Mayer@unibw.de
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
@@ -15,43 +10,37 @@ The above copyright notice and this permission notice shall be included in all c
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
-For compilation use cmake / cmake-gui and make
+## For compilation use cmake / cmake-gui and make
 
 
-RPBA is controled via the file 
+## RPBA is controled via the file "parameters"
 
-"parameters"
+* Robust:    1 means that robust estimation is used
+* Exteval:   1 means that back projection error is computed, but no adjustment
+* Threads:   Number threads - 0 means physically available number
+
+* k2:        1 means that second order radial distortion is estimated		 
+* k4:        1 means that fourth order radial distortion is estimated
+* f:         1 means that focale length / camera constant is estimated
+
+* k24out:    1 means that the output of PBA can be read
+* InputDir:  Name of input directory
+* File: File name with format 
 
 
-It uses the data format defined in the project "Bundle Adjustment in the Large"
+## It uses the data format defined in the project "Bundle Adjustment in the Large"
 
    https://grail.cs.washington.edu/projects/bal/
 
-It has been particularly tested with
+and has been particularly tested with
 
-   problem-961-187103-pre.txt
+* problem-961-187103-pre.txt
 
 and the largest blocks
 
-   problem-3068-310854-pre.txt
-   problem-4585-1324582-pre.txt
-   problem-13682-4456117-pre.txt
+* problem-3068-310854-pre.txt
+* problem-4585-1324582-pre.txt
+* problem-13682-4456117-pre.txt
 
-in https://grail.cs.washington.edu/projects/bal/final.html
-
-
-
-A short guide to the file "parameters"
-
-Robust:    1 means that robust estimation is used
-Exteval:   1 means that back projection error is computed, but no adjustment
-Threads:   Number threads - 0 means physically available number
-
-k2:        1 means that second order radial distortion is estimated		 
-k4:        1 means that fourth order radial distortion is estimated
-f:         1 means that focale length / camera constant is estimated
-
-k24out:    1 means that the output of PBA can be read
-
-InputDir:  Name of input directory
-File: File name with format 
+in 
+   https://grail.cs.washington.edu/projects/bal/final.html
