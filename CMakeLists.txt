@@ -28,7 +28,6 @@ set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS Release Debug)
 # ------------------------------------
 # Boost
 # ------------------------------------
-cmake_policy(SET CMP0074 NEW)
 find_package(Boost REQUIRED)
 include_directories(${Boost_INCLUDE_DIRS})
 
