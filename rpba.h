@@ -398,7 +398,6 @@ public:
 	 *
 	 * @param[in] i                     Index of point i
 	 * @param[in] gcpnum                Index of GCP
-	 * @param[in] XM                    Vector with unknowns of bundle adjustment
 	 * @param[in] robustflagi           Controls if robust re-weighting is to be used
 	 * @param[in] itbreakflagi          Controls if compuation is stoped after one iteration of outer loop
 	 * @param[in] W3ijit                3D covariance matrices for GCPs
@@ -406,7 +405,7 @@ public:
 	 * @param[in] gcpdatait             GCP data (xyz)
 	 * @param[in] derivflag             If true, derivatives are computed
 	 */
-	void CalcDerivatives3DGCP(const int i, const int gcpnum, const std::vector<double> &XM,
+	void CalcDerivatives3DGCP(const int i, const int gcpnum,
 			const bool robustflagi, const bool itbreakflagi, const std::vector<std::vector<float> > &W3ijit,
 			const std::vector<int> &gcptypeit, const std::vector<std::vector<double> > &gcpdatait, const bool derivflag);
 
