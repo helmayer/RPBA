@@ -248,7 +248,7 @@ void CalcPLSA(Eigen::MatrixXf &XX,
 			if (iflag == 1) {
 				robustflagit = robustflag;
 				if (robustflag)
-					sig0frac = 1.02;
+					sig0frac = 1.02f;
 			}
 
 			const int nrppt = pxs / nrthreads;
@@ -999,7 +999,7 @@ void PartitionpointXXv(std::vector<std::vector<IMAPNR> > &pointXXv, const int nr
     	}
 
     xadj[i+1] = xadj[i] + nrconn;
-    vwgt[i] = pow(BM[i],0.3333);
+    vwgt[i] = (idx_t) pow(BM[i],0.3333);
   } // for
 
 
