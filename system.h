@@ -67,7 +67,7 @@ public:
 					return mt;
 			}
 		#else
-			mt = sysconf(_SC_NPROCESSORS_ONLN);
+			mt = (int) sysconf(_SC_NPROCESSORS_ONLN);
 			if( mt > 0 )
 				return mt;
 		#endif
