@@ -219,7 +219,6 @@ public:
 	 * @param[in] W3iji                3D covariance matrix for GCPs
 	 * @param[in] gcpflagin            Controls if ground control point (GCP) information is to be used
 	 * @param[in] gcpinfo            Vector controlling for which points GCP information is to be used
-	 * @param[in] gcptypein            GCP type - 0: xyz, 1: xy, 2: z
 	 * @param[in] gcpdatain            GCP data (xyz)
 	 * @param[in] ihw2i                Half average image width and height
 	 * @param[in] robustflagi          Controls if robust re-weighting is to be used
@@ -233,7 +232,7 @@ public:
 			const std::vector<Eigen::MatrixXf> &xgin,
 			const std::vector<std::vector<float> > &wx, const std::vector<std::vector<float> > &wy, const std::vector<std::vector<float> > &wxy,
 			const std::vector<std::vector<float> > &W3iji,
-			const bool gcpflagin, const std::vector<int> &gcpinfo, const std::vector<int> &gcptypein, const std::vector<std::vector<double> > &gcpdatain,
+			const bool gcpflagin, const std::vector<int> &gcpinfo, const std::vector<std::vector<double> > &gcpdatain,
 			const float ihw2i,
 			const bool robustflagi);
 
@@ -277,12 +276,11 @@ public:
 	 * @param[in] itmaxnumin           Maximum number of iterations
 	 * @param[in] W3iji                3D covariance matrices for GCPs
 	 * @param[in] gcpflagin            Controls if ground control point (GCP) information is to be used
-	 * @param[in] gcptypeit            GCP type - 0: xyz, 1: xy, 2: z
 	 * @param[in] gcpdatait            GCP data (xyz)
 	 */
 	void Adjust(const bool robustflagi,
 			std::ostream& os, const bool itbreakflagi, const int itmaxnumin, const std::vector<std::vector<float> > &W3iji,
-			const bool gcpflagin, const std::vector<int> &gcptypeit, const std::vector<std::vector<double> > &gcpdatait);
+			const bool gcpflagin, const std::vector<std::vector<double> > &gcpdatait);
 	/**
 	 * @brief Global output function for parallel processing
 	 *
@@ -320,12 +318,11 @@ public:
 	 *
 	 * @param[in] cset				  Camera set
 	 * @param[in] addflagsin             Controls which additional parameters are to be used
-	 * @param[in] gcptypein           GCP type - 0: xyz, 1: xy, 2: z
 	 * @param[in] gcpdatain           GCP data (xyz)
  	 */
 	void PrepareIteration(const std::vector<Camera> &cset,
 			const std::vector<bool> &addflagsin,
-			const std::vector<int> &gcptypein, const std::vector<std::vector<double> > &gcpdatain);
+			const std::vector<std::vector<double> > &gcpdatain);
 	/**
 	 * @brief Prepares weights for 2D observations
 	 *
@@ -360,10 +357,21 @@ public:
 	 *
  	 */
 	void RobustDelete();
+	/** @brief Computation of corrections the observations
+	 *
+	 * @param[in] solveflag             If true, solution vector is computed
+	 * @param[in] multfact1             Multiplication factor for main diagonal of normal equation system according to Levenberg-Marquardt
+	 * @param[in] XM                    Vector with unknowns of bundle adjustment
+	 * @param[in] srmvflag              Flag controling if vector for median of reweighted corrections is computed
+	 * @param[in] derivflag             If true, derivatives are computed
+	 * @param[in] robustflagi            Controls if robust re-weighting is to be used
+	 * @param[in] W3ijit               3D covariance matrices for GCPs and GPS camera positions
+	 * @param[in] gcpdatait            GCP data (xyz)
+	 */
 	void CalcCorrections(const bool solveflag, const double multfact1, const std::vector<double> &XM, const bool srmvflag,
 			const bool derivflag, const bool robustflagi,
 			const bool itbreakflagi, const std::vector<std::vector<float> > &W3ijit,
-			const std::vector<int> &gcptypeit, const std::vector<std::vector<double> > &gcpdatait);
+			const std::vector<std::vector<double> > &gcpdatait);
 	/** @brief Computation of derivatives of the observations
 	 *
 	 * @param[in] solveflag             If true, solution vector is computed
@@ -401,13 +409,12 @@ public:
 	 * @param[in] robustflagi           Controls if robust re-weighting is to be used
 	 * @param[in] itbreakflagi          Controls if compuation is stoped after one iteration of outer loop
 	 * @param[in] W3ijit                3D covariance matrices for GCPs
-	 * @param[in] gcptypeit             GCP type - 0: xyz, 1: xy, 2: z
 	 * @param[in] gcpdatait             GCP data (xyz)
 	 * @param[in] derivflag             If true, derivatives are computed
 	 */
 	void CalcDerivatives3DGCP(const int i, const int gcpnum,
 			const bool robustflagi, const bool itbreakflagi, const std::vector<std::vector<float> > &W3ijit,
-			const std::vector<int> &gcptypeit, const std::vector<std::vector<double> > &gcpdatait, const bool derivflag);
+			const std::vector<std::vector<double> > &gcpdatait, const bool derivflag);
 
 
 	/** @brief Decoding of cameras given the unknowns
@@ -431,13 +438,12 @@ public:
 	 * @param[in] robustflagi           Controls if robust re-weighting is to be used
 	 * @param[in] itbreakflagi         Controls if compuation is stoped after one iteration of outer loop
 	 * @param[in] W3ijit               3D covariance matrices for GCPs
-	 * @param[in] gcptypeit            GCP type - 0: xyz, 1: xy, 2: z
 	 * @param[in] gcpdatait            GCP data (xyz)
 	 * @return					True if error
 	 */
 	bool CalcBundleSep(const double multfact, const bool robustflagi,
 			const bool itbreakflagi, const std::vector<std::vector<float> > &W3ijit,
-			const std::vector<int> &gcptypeit, const std::vector<std::vector<double> > &gcpdatait);
+			const std::vector<std::vector<double> > &gcpdatait);
 	/** @brief Converts (external) pointXXvio to internal pointXXv
 	 *
 	 * @param[in] XXi              Homogeneous coordinates of 3D points
@@ -568,8 +574,6 @@ public:
 	bool gcpflag;
 	/** Vector controlling for which points GCP information is to be used */
 	std::vector<int> gcpinfo;
-	/** GCP type - 0: xyz, 1: xy, 2: z */
-	std::vector<int> gcptype;
 	/** GCP data */
 	std::vector<std::vector<double> > gcpdata;
 	/** Number of observations for GCPs */
