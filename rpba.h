@@ -279,12 +279,10 @@ public:
 	 * @param[in] gcpflagin            Controls if ground control point (GCP) information is to be used
 	 * @param[in] gcptypeit            GCP type - 0: xyz, 1: xy, 2: z
 	 * @param[in] gcpdatait            GCP data (xyz)
-	 * @param[in] cset			       Camera set
 	 */
 	void Adjust(const bool robustflagi,
 			std::ostream& os, const bool itbreakflagi, const int itmaxnumin, const std::vector<std::vector<float> > &W3iji,
-			const bool gcpflagin, const std::vector<int> &gcptypeit, const std::vector<std::vector<double> > &gcpdatait,
-			const std::vector<Camera> &cset);
+			const bool gcpflagin, const std::vector<int> &gcptypeit, const std::vector<std::vector<double> > &gcpdatait);
 	/**
 	 * @brief Global output function for parallel processing
 	 *
