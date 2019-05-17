@@ -221,7 +221,8 @@ void InputBlock(const std::string &inputfile, const int nraddpar,
 	iwidth.resize(nrcameras);
 	iheight.resize(nrcameras);
 
-	double a, b, c, f, k2, k4;
+	double a, b, c;
+	float f, k2, k4;
 	for (int i = 0; i < nrcameras; ++i) {
 		cameras[i] = Camera();
 		cameras[i].K.setZero();
@@ -238,8 +239,8 @@ void InputBlock(const std::string &inputfile, const int nraddpar,
 			cameras[i].distpara[1] = k4 * f * f * f * f;
 		} // else
 
-		iwidth[i] = 1.;
-		iheight[i] = 1.;
+		iwidth[i] = 1;
+		iheight[i] = 1;
 
 		xg[i].resize(3,(int) xin[i].size());
 		for (int j = 0; j < (int) xin[i].size(); ++j) {
@@ -275,7 +276,7 @@ void OutputBlock(const std::string &outputfile,
 	int nrobs = 0;
 
 	for (int i = 0; i < (int) pointXXv.size(); ++i)
-		nrobs += pointXXv[i].size();
+		nrobs += (int) pointXXv[i].size();
 
 	fout << (int) PMatrices.size() << ' ';
 	fout << (int) XX.cols() << ' ';
@@ -329,15 +330,15 @@ void ComputeRotationMatrixfromRodriguesAngle(const double a, const double b, con
 	const double aa = sqrt(a2 + b2 + c2);
 	const double ct = aa == 0.?0.5:(1. - cos(aa)) / (aa * aa);
 	const double st = aa == 0.?1:sin(aa) / aa;
-	Rabc(0,0) = 1. - (b2 + c2) * ct;
-	Rabc(0,1) = ab * ct - c * st;
-	Rabc(0,2) = ac * ct + b * st;
-	Rabc(1,0) = ab * ct + c * st;
-	Rabc(1,1) = 1. - (c2 + a2) * ct;
-	Rabc(1,2) = bc * ct - a * st;
-	Rabc(2,0) = ac * ct - b * st;
-	Rabc(2,1) = bc * ct + a * st;
-	Rabc(2,2) = 1. - (a2 + b2) * ct;
+	Rabc(0,0) = (float) (1. - (b2 + c2) * ct);
+	Rabc(0,1) = (float) (ab * ct - c * st);
+	Rabc(0,2) = (float) (ac * ct + b * st);
+	Rabc(1,0) = (float) (ab * ct + c * st);
+	Rabc(1,1) = (float) (1. - (c2 + a2) * ct);
+	Rabc(1,2) = (float) (bc * ct - a * st);
+	Rabc(2,0) = (float) (ac * ct - b * st);
+	Rabc(2,1) = (float) (bc * ct + a * st);
+	Rabc(2,2) = (float) (1. - (a2 + b2) * ct);
 
 	return;
 } // ComputeRotationMatrixfromRodriguesAngle
