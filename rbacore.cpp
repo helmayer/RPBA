@@ -1334,9 +1334,9 @@ void LSA::CalcCorrections(const bool solveflag, const double multfact1, const st
 
 		if (gcpflag && gcpinfo[i] > -1) {
 			if (itbreakflagi)
-				CalcDerivatives3DGCP(i, gcpnum, XM, robustflagi, itbreakflagi, W3ijit, gcptypeit, gcpdatait, derivflag);
+				CalcDerivatives3DGCP(i, gcpnum, robustflagi, itbreakflagi, W3ijit, gcptypeit, gcpdatait, derivflag);
 			else
-				CalcDerivatives3DGCP(i, gcpnum, XM, robustflagi, itbreakflagi, W3ij, gcptypeit, gcpdatait, derivflag);
+				CalcDerivatives3DGCP(i, gcpnum, robustflagi, itbreakflagi, W3ij, gcptypeit, gcpdatait, derivflag);
 			++gcpnum;
 		}
 
@@ -1676,7 +1676,7 @@ void LSA::eCalcCalibratedDerivatives3(Eigen::Matrix<double, 2, 3> &A, const int 
 
 
 
-void LSA::CalcDerivatives3DGCP(const int i, const int gcpnum, const std::vector<double> &XM,
+void LSA::CalcDerivatives3DGCP(const int i, const int gcpnum,
 		const bool robustflagi, const bool itbreakflagi, const std::vector<std::vector<float> > &W3ijit,
 		const std::vector<int> &gcptypeit, const std::vector<std::vector<double> > &gcpdatait,
 		const bool derivflag) {
