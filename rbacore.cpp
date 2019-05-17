@@ -334,8 +334,7 @@ void LSA::InputLSAP(const std::vector<bool> &addflagsin,
 
 void LSA::Adjust(const bool robustflagi,
 		std::ostream& os, const bool itbreakflagi, const int itmaxnumin, const std::vector<std::vector<float> > &W3ijit,
-		const bool gcpflagin, const std::vector<int> &gcptypeit, const std::vector<std::vector<double> > &gcpdatait,
-		const std::vector<Camera> &cset) {
+		const bool gcpflagin, const std::vector<int> &gcptypeit, const std::vector<std::vector<double> > &gcpdatait) {
 
 	int itt, iter, iflag;
 	bool ittflag;
