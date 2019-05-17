@@ -229,7 +229,7 @@ void CalcPLSA(Eigen::MatrixXf &XX,
 						LSAv[it]->InputLSAP(addflags, camerasoit[it], imgindv[it], pointXXvv[it], PMatricesdd[it], XXdd[it], (int) pointXXvv[it].size(),
 								gcpinfov[it]);
 
-					LSAv[it]->Adjust(false, osv[it], true, 0, W3ijiv[it], true, gcptype, gcpdatav[it], cameras);
+					LSAv[it]->Adjust(false, osv[it], true, 0, W3ijiv[it], true, gcptype, gcpdatav[it]);
 
 					LSAv[it]->OutputLSAP(PMatricesdd[it], pointXXvv[it], XXdd[it], gcpinfov[it], camerasoit[it]);
 				} // for it
@@ -518,7 +518,7 @@ void CalcPLSA(Eigen::MatrixXf &XX,
 				gcpflag, gcpinfo, gcptype, gcpdata,
 				ihw2, robustflag);
 
-		LSA1->Adjust(robustflag, os, false, -1, W3iji, false, gcptype, gcpdata, cameras);
+		LSA1->Adjust(robustflag, os, false, -1, W3iji, false, gcptype, gcpdata);
 
 		LSA1->OutputLSAc(PMatrices, pointXXvio, XX, cameras);
 
