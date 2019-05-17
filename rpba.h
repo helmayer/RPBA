@@ -223,7 +223,6 @@ public:
 	 * @param[in] gcpdatain            GCP data (xyz)
 	 * @param[in] ihw2i                Half average image width and height
 	 * @param[in] robustflagi          Controls if robust re-weighting is to be used
-	 * @param[in] itbreakflagi         Controls if compuation is stoped after one iteration of outer loop
  	 */
 	LSA(const std::vector<Camera> &cameras,
 			const std::vector<bool> &addflags,
@@ -236,7 +235,7 @@ public:
 			const std::vector<std::vector<float> > &W3iji,
 			const bool gcpflagin, const std::vector<int> &gcpinfo, const std::vector<int> &gcptypein, const std::vector<std::vector<double> > &gcpdatain,
 			const float ihw2i,
-			const bool robustflagi, const bool itbreakflagi);
+			const bool robustflagi);
 
 
 	/** @brief Internal structure in LSA for pointXXv
@@ -356,10 +355,8 @@ public:
 	void EncodeCameras();
 	/**
 	 * @brief Store results for improved average standard deviation
-	 *
-	 * @param[in] itbreakflagi         Controls if compuation is stoped after one iteration of outer loop
  	 */
-	void StoreResultsIteration(const bool itbreakflagi);
+	void StoreResultsIteration();
 	/**
 	 * @brief Restore results after break
 	 *
