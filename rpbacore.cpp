@@ -63,7 +63,7 @@ void CalcPLSA(Eigen::MatrixXf &XX,
 
 	std::vector<int> imgind, imgindbv(pxs);
 	std::vector<Camera> cameraps(nrimages);
-	std::vector<int> gcpinfo,gcptype,gcptypeit;
+	std::vector<int> gcpinfo;
 	std::vector<std::vector<float> > W3iji(6);
 	std::vector<PMatd> PMatricesd(nrimages),PMatricesdold(nrimages),PMatricesdt(nrimages);
 	std::vector<std::vector<double> > gcpdata,gcpdatait;
@@ -223,13 +223,13 @@ void CalcPLSA(Eigen::MatrixXf &XX,
 								true, imgindv[it], PMatricesdd[it],
 								pointXXvv[it], XXdd[it], (int)pindv[it].size(), xg,
 								wx, wy, wxy, W3iji,
-								true, gcpinfov[it], gcptypeit, gcpdatait,
+								true, gcpinfov[it], gcpdatait,
 								ihw2, false);
 					else
 						LSAv[it]->InputLSAP(addflags, camerasoit[it], imgindv[it], pointXXvv[it], PMatricesdd[it], XXdd[it], (int) pointXXvv[it].size(),
 								gcpinfov[it]);
 
-					LSAv[it]->Adjust(false, osv[it], true, 0, W3ijiv[it], true, gcptype, gcpdatav[it]);
+					LSAv[it]->Adjust(false, osv[it], true, 0, W3ijiv[it], true, gcpdatav[it]);
 
 					LSAv[it]->OutputLSAP(PMatricesdd[it], pointXXvv[it], XXdd[it], gcpinfov[it], camerasoit[it]);
 				} // for it
@@ -515,10 +515,10 @@ void CalcPLSA(Eigen::MatrixXf &XX,
 		LSA *LSA1 = new LSA(cameras, addflags,
 				false, imgind, PMatricesd, pointXXv, XXd, pxs, xg,
 				wx, wy, wxy, W3iji,
-				gcpflag, gcpinfo, gcptype, gcpdata,
+				gcpflag, gcpinfo, gcpdata,
 				ihw2, robustflag);
 
-		LSA1->Adjust(robustflag, os, false, -1, W3iji, false, gcptype, gcpdata);
+		LSA1->Adjust(robustflag, os, false, -1, W3iji, false, gcpdata);
 
 		LSA1->OutputLSAc(PMatrices, pointXXvio, XX, cameras);
 
