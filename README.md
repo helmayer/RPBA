@@ -26,7 +26,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 * File: File name with format 
 
 
-### It uses the data format defined in the project "Bundle Adjustment in the Large"
+### RPBA uses the data format defined in the project "Bundle Adjustment in the Large"
 
    https://grail.cs.washington.edu/projects/bal/
 
@@ -41,3 +41,13 @@ and the largest blocks
 * problem-13682-4456117-pre.txt
 
 in https://grail.cs.washington.edu/projects/bal/final.html
+
+### Please cite
+ 
+@InProceedings{mayer:19,  
+  author    = "Mayer, H.",  
+  title     = "{RPBA -- Robust Parallel Bundle Adjustment Based on Covariance Information}",  
+  pages =        "submitted",  
+  journal =      "ISPRS Journal of Photogrammetry and Remote Sensing",  
+  year =         "2019",  
+}
