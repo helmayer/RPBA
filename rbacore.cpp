@@ -43,7 +43,7 @@ LSA::LSA(const std::vector<Camera> &cameras,
 		const std::vector<Eigen::MatrixXf> &xgin,
 		const std::vector<std::vector<float> > &wx, const std::vector<std::vector<float> > &wy, const std::vector<std::vector<float> > &wxy,
 		const std::vector<std::vector<float> > &W3iji,
-		const bool gcpflagin, const std::vector<int> &gcpinfoin, const std::vector<int> &gcptypein, const std::vector<std::vector<double> > &gcpdatain,
+		const bool gcpflagin, const std::vector<int> &gcpinfoin, const std::vector<std::vector<double> > &gcpdatain,
 		const float ihw2i,
 		const bool robustflagi) : xg(xgin), ihw2(ihw2i), defdiff(5000. / sqrtf(ihw2i)) /* no more than 5 pixels */, wxi(wx), wyi(wy), wxyi(wxy)
 {
@@ -107,7 +107,7 @@ LSA::LSA(const std::vector<Camera> &cameras,
 
 	PrepareCameras();
 
-	PrepareIteration(cameras, addflagsin, gcptypein, gcpdatain);
+	PrepareIteration(cameras, addflagsin, gcpdatain);
 
 	if (robustflagi) {
 		sig00v.resize(nrimages);
@@ -126,7 +126,7 @@ LSA::LSA(const std::vector<Camera> &cameras,
 
 void LSA::PrepareIteration(const std::vector<Camera> &cset,
 		const std::vector<bool> &addflagsin,
-		const std::vector<int> &gcptypein, const std::vector<std::vector<double> > &gcpdatain) {
+		const std::vector<std::vector<double> > &gcpdatain) {
 
 	addflags = addflagsin;
 
@@ -176,10 +176,8 @@ void LSA::PrepareIteration(const std::vector<Camera> &cset,
 			return;
 		}
 		const int gcpd = (int) gcpdatain.size();
-		gcptype.resize(gcpd);
 		gcpdata.resize(gcpd);
 		for(int k = 0; k < gcpd; ++k) {
-			gcptype[k] = gcptypein[k];
 			gcpdata[k].resize(3);
 			for(int j = 0; j < 3; ++j)
 				gcpdata[k][j] = gcpdatain[k][j];
@@ -334,7 +332,7 @@ void LSA::InputLSAP(const std::vector<bool> &addflagsin,
 
 void LSA::Adjust(const bool robustflagi,
 		std::ostream& os, const bool itbreakflagi, const int itmaxnumin, const std::vector<std::vector<float> > &W3ijit,
-		const bool gcpflagin, const std::vector<int> &gcptypeit, const std::vector<std::vector<double> > &gcpdatait) {
+		const bool gcpflagin, const std::vector<std::vector<double> > &gcpdatait) {
 
 	int itt, iter, iflag;
 	bool ittflag;
@@ -483,7 +481,7 @@ void LSA::Adjust(const bool robustflagi,
 			DecodeCameras(XPMatrices);
 			nrobv = nrobvo;
 			sig0ao = 0.f;
-			CalcCorrections(false, 1. + multfact, XPMatrices, true, false, robustflagi, itbreakflagi, W3ijit, gcptypeit, gcpdatait);
+			CalcCorrections(false, 1. + multfact, XPMatrices, true, false, robustflagi, itbreakflagi, W3ijit, gcpdatait);
 
 			if (aoflag) {
 				sig0aoi = sig0 * wsumg / (float) redundancy;
@@ -531,7 +529,7 @@ void LSA::Adjust(const bool robustflagi,
 					wsumg = wsum;
 			}
 
-			if (CalcBundleSep(multfact, robustflagi, itbreakflagi, W3ijit, gcptypeit, gcpdatait)) {
+			if (CalcBundleSep(multfact, robustflagi, itbreakflagi, W3ijit, gcpdatait)) {
 				if (nrimages > 3)
 					os << "BA-Error: CalcBundleSep\n";
 				return;
@@ -551,7 +549,7 @@ void LSA::Adjust(const bool robustflagi,
 
 			DecodeCameras(XPMatricesnew);
 			nrobv = nrobvo;
-			CalcCorrections(false, 1. + multfact, XPMatricesnew, true, false, robustflagi, itbreakflagi, W3ijit, gcptypeit, gcpdatait);
+			CalcCorrections(false, 1. + multfact, XPMatricesnew, true, false, robustflagi, itbreakflagi, W3ijit, gcpdatait);
 
 			if (aoflag) {
 				sig0aoi = sig0 * wsumg / (float) redundancy;
@@ -1095,7 +1093,7 @@ void LSA::EncodeCameras() {
 // of Mikhail et al. on "Introduction to Modern Photogrammetry".
 bool LSA::CalcBundleSep(const double multfact, const bool robustflagi,
 		const bool itbreakflagi, const std::vector<std::vector<float> > &W3ijit,
-		const std::vector<int> &gcptypeit, const std::vector<std::vector<double> > &gcpdatait) {
+		const std::vector<std::vector<double> > &gcpdatait) {
 
 	int nbegin, nend = 0;
 
@@ -1160,7 +1158,7 @@ bool LSA::CalcBundleSep(const double multfact, const bool robustflagi,
 
 
 	nrobv = nrobvo;
-	CalcCorrections(false, multfact1, XPMatrices, false, true, robustflagi, itbreakflagi, W3ijit, gcptypeit, gcpdatait);
+	CalcCorrections(false, multfact1, XPMatrices, false, true, robustflagi, itbreakflagi, W3ijit, gcpdatait);
 
 
 	for(int i = begini; i < nrimagesapc; ++i)
@@ -1188,7 +1186,7 @@ bool LSA::CalcBundleSep(const double multfact, const bool robustflagi,
 	} //for j
 
 	nrobv = nrobvo;
-	CalcCorrections(true, multfact1, XPMatrices, false, true, robustflagi, itbreakflagi, W3ijit, gcptypeit, gcpdatait);
+	CalcCorrections(true, multfact1, XPMatrices, false, true, robustflagi, itbreakflagi, W3ijit, gcpdatait);
 
 
 	iniflag = false;
@@ -1203,7 +1201,7 @@ bool LSA::CalcBundleSep(const double multfact, const bool robustflagi,
 void LSA::CalcCorrections(const bool solveflag, const double multfact1, const std::vector<double> &XM, const bool srmvflag,
 		const bool derivflag, const bool robustflagi,
 		const bool itbreakflagi, const std::vector<std::vector<float> > &W3ijit,
-		const std::vector<int> &gcptypeit, const std::vector<std::vector<double> > &gcpdatait) {
+		const std::vector<std::vector<double> > &gcpdatait) {
 
 	sig0 = 0.f;
 
@@ -1334,9 +1332,9 @@ void LSA::CalcCorrections(const bool solveflag, const double multfact1, const st
 
 		if (gcpflag && gcpinfo[i] > -1) {
 			if (itbreakflagi)
-				CalcDerivatives3DGCP(i, gcpnum, robustflagi, itbreakflagi, W3ijit, gcptypeit, gcpdatait, derivflag);
+				CalcDerivatives3DGCP(i, gcpnum, robustflagi, itbreakflagi, W3ijit, gcpdatait, derivflag);
 			else
-				CalcDerivatives3DGCP(i, gcpnum, robustflagi, itbreakflagi, W3ij, gcptypeit, gcpdatait, derivflag);
+				CalcDerivatives3DGCP(i, gcpnum, robustflagi, itbreakflagi, W3ij, gcpdatait, derivflag);
 			++gcpnum;
 		}
 
@@ -1678,7 +1676,7 @@ void LSA::eCalcCalibratedDerivatives3(Eigen::Matrix<double, 2, 3> &A, const int 
 
 void LSA::CalcDerivatives3DGCP(const int i, const int gcpnum,
 		const bool robustflagi, const bool itbreakflagi, const std::vector<std::vector<float> > &W3ijit,
-		const std::vector<int> &gcptypeit, const std::vector<std::vector<double> > &gcpdatait,
+		const std::vector<std::vector<double> > &gcpdatait,
 		const bool derivflag) {
 
 	double diff1, diff2, diff3;
