@@ -45,8 +45,7 @@ LSA::LSA(const std::vector<Camera> &cameras,
 		const std::vector<std::vector<float> > &W3iji,
 		const bool gcpflagin, const std::vector<int> &gcpinfoin, const std::vector<int> &gcptypein, const std::vector<std::vector<double> > &gcpdatain,
 		const float ihw2i,
-		const bool robustflagi,
-		const bool itbreakflagi) : xg(xgin), ihw2(ihw2i), defdiff(5000. / sqrtf(ihw2i)) /* no more than 5 pixels */, wxi(wx), wyi(wy), wxyi(wxy)
+		const bool robustflagi) : xg(xgin), ihw2(ihw2i), defdiff(5000. / sqrtf(ihw2i)) /* no more than 5 pixels */, wxi(wx), wyi(wy), wxyi(wxy)
 {
 
 	W3ij = W3iji;
@@ -567,7 +566,7 @@ void LSA::Adjust(const bool robustflagi,
 				--iflag;
 
 			if (sig0 <= sig0old || iter == 1) { //  || itt == 0) {
-				StoreResultsIteration(itbreakflagi);
+				StoreResultsIteration();
 
 				sig0old = sig0;
 				sig0aoiold = sig0aoi;
@@ -892,7 +891,7 @@ void LSA::Reweight2D(const int iflag) {
 
 
 
-void LSA::StoreResultsIteration(const bool itbreakflagi) {
+void LSA::StoreResultsIteration() {
 
 	XPMatrices = XPMatricesnew;
 
