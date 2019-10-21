@@ -34,7 +34,7 @@ and the largest blocks
 
 in https://grail.cs.washington.edu/projects/bal/final.html
 
-### Please cite
+### Please cite http://arxiv.org/abs/1910.08138
   
 @misc{mayer:19,  
     title   = {RPBA -- Robust Parallel Bundle Adjustment Based on Covariance Information},  
