@@ -35,16 +35,17 @@ and the largest blocks
 in https://grail.cs.washington.edu/projects/bal/final.html
 
 ### Please cite
- 
-@InProceedings{mayer:19,  
-  author    = "Mayer, H.",  
-  title     = "{RPBA -- Robust Parallel Bundle Adjustment Based on Covariance Information}",  
-  pages =        "submitted",  
-  journal =      "ISPRS Journal of Photogrammetry and Remote Sensing",  
-  year =         "2019",  
-}
-
-
+  
+@misc{mayer:19,  
+    title   = {RPBA -- Robust Parallel Bundle Adjustment Based on Covariance Information},  
+    author  = {Helmut Mayer},  
+    year    = {2019},  
+    eprint  = {1910.08138},  
+    archivePrefix = {arXiv},  
+    primaryClass = {cs.CV}  
+}  
+  
+  
 Copyright 2019 Helmut Mayer, Bundeswehr University Munich, Germany, Helmut.Mayer@unibw.de
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
