@@ -134,7 +134,7 @@ int main(int argc, char** argv) {
 			addflags,
 			os, mt, extevalflag);
 
-	if ((int) PMatrices.size() < 20 || mt == 1)
+	if ((int) PMatrices.size() < 50 || mt == 1)
 		std::cout << os.str();
 
 	std::cout << "\n\nBundle adjustment runtime: " << (float) (System::getTickCount()-start) / 1000.f << "s\n\n";
@@ -149,6 +149,28 @@ int main(int argc, char** argv) {
 				cameras, k24outflag);
 	} // if extevalflag */
 
+	
+	
+/*
+	// Output of text file with 3D coordinates
+	std::stringstream cloudfiles;
+	cloudfiles << ID << "/" << "cloud.txt";
+	std::string cloudfile = cloudfiles.str();
+	std::cout << "Outputfile: " << cloudfile << std::endl;
+	ofstream foutc(cloudfile);
+	foutc << std::setprecision(8);
+	int counter = 0;
+	for (int i = 0; i < XX.cols(); ++i) {
+		if (pointXXv[i].size() > 0)
+			foutc << XX(0,i) << ' ' << XX(1,i) << ' ' << XX(2,i) << '\n';
+		else
+			++counter;
+	}
+	foutc.close();
+
+	// Counter gives number of 3D points which have been deleted during (robust) bundle adjustment
+	std::cout << "Counter: " << counter << std::endl;
+*/
 
 	return 0;
 }
