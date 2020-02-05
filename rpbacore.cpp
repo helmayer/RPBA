@@ -61,7 +61,7 @@ void CalcPLSA(Eigen::MatrixXf &XX,
 	Eigen::MatrixXd XXd(4,pxs), XXdold(4,pxs), XXdt(4,pxs), XXt(4,pxs);
 	std::vector<Eigen::MatrixXd> Zs; // XXs;
 
-	std::vector<int> imgind, imgindbv(pxs);
+	std::vector<int> imgind, imgindbv(nrimages);
 	std::vector<Camera> cameraps(nrimages);
 	std::vector<int> gcpinfo;
 	std::vector<std::vector<float> > W3iji(6);
