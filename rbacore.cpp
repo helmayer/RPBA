@@ -1102,7 +1102,7 @@ bool LSA::CalcBundleSep(const double multfact, const bool robustflagi,
 	sig0ao = 0.f;
 
 	begini = 1;
-	if (aoflag)
+	if (aoflag || nraddpi > 0)
 		begini = 0;
 
 	const double multfact1 = 1. + multfact;
